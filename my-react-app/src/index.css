@@ -25,14 +25,28 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
+  background-color: #747bff;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin-top: 80px;
+  margin-left: 700px;
+}
+
+p {
+  padding-left: 700px;
+  font-size: 30px;
+}
+
+img {
+  width: 300px;
+  height: 300px;
+  margin-left: 720px;
 }
 
 button {
