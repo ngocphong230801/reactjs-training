@@ -52,8 +52,9 @@ const App: React.FC = () => {
   };
 
   return (
+    <div>
+    <h1>Todo List</h1>
     <div className='container'>
-      <h1>Todo List</h1>
       <div className='input-header'>
         <input
           type="text"
@@ -65,6 +66,7 @@ const App: React.FC = () => {
         <button onClick={handleAddTodo}>Add</button>
       </div>
       <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
+    </div>
     </div>
   );
 };
