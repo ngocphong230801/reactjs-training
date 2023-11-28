@@ -1,35 +1,72 @@
-import { useState, useEffect } from 'react';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import TodoList from './components/TodoList';
 
-export default function TodoList() {
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const img = 'https://i.ibb.co/xqmT7qQ/Screenshot-2.png';
-  const description = 'Working hard everytime'
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
+
+const initialTodos: Todo[] = JSON.parse(localStorage.getItem('todos') || '[]');
+
+const App: React.FC = () => {
+  const [todos, setTodos] = useState<Todo[]>(initialTodos);
+  const [inputText, setInputText] = useState<string>('');
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
-    return () => clearInterval(interval);
-  }, []);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(e.target.value);
+  };
 
-  function formatDate(date: Date) {
-    return new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
-  }
+  const handleAddTodo = () => {
+    if (inputText.trim() !== '') {
+      const newTodo: Todo = {
+        id: todos.length + 1,
+        text: inputText,
+        completed: false,
+      };
+      setTodos([...todos, newTodo]);
+      setInputText('');
+    }
+  };
 
-  function formatTime(date: Date) {
-    const hour = date.getHours();
-    const minute = date.getMinutes();
-    const seconds = date.getSeconds();
-    return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  }
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleAddTodo();
+    }
+  };
+
+  const toggleTodo = (id: number) => {
+    setTodos(prevTodos =>
+      prevTodos.map(todo =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
+  const deleteTodo = (id: number) => {
+    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
+  };
 
   return (
-    <div>
-      <h1>To Do List for {formatDate(currentTime)}</h1>
-      <p> It's now: {formatTime(currentTime)}</p>
-      <img src= {img} alt= {description} />
+    <div className='container'>
+      <h1>Todo List</h1>
+      <div className='input-header'>
+        <input
+          type="text"
+          placeholder="Add Todo"
+          value={inputText}
+          onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
+        />
+        <button onClick={handleAddTodo}>Add</button>
+      </div>
+      <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
     </div>
   );
-}
+};
+
+export default App;
