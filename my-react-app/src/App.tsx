@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TodoList from './components/TodoList';
+import ConfirmDialog from './components/ConfirmDialog';
 
 interface Todo {
   id: number;
@@ -12,6 +13,7 @@ const initialTodos: Todo[] = JSON.parse(localStorage.getItem('todos') || '[]');
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
   const [inputText, setInputText] = useState<string>('');
+  const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
@@ -51,22 +53,43 @@ const App: React.FC = () => {
     setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
   };
 
+  const clearCompleted = () => {
+    setTodos(prevTodos => prevTodos.filter(todo => !todo.completed));
+  };
+
+  const handleConfirmDialogClose = () => {
+    // Close the confirmation dialog
+    setShowConfirmDialog(false);
+  };
+
+  const handleConfirmDialogConfirm = () => {
+    // Clear completed todos
+    setTodos(prevTodos => prevTodos.filter(todo => !todo.completed));
+    setShowConfirmDialog(false); // Close the confirmation dialog
+  };
+
   return (
     <div>
-    <h1>Todo List</h1>
-    <div className='container'>
-      <div className='input-header'>
-        <input
-          type="text"
-          placeholder="Add Todo"
-          value={inputText}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
+      <h1>Todo List</h1>
+      <div className='container'>
+        <div className='input-header'>
+          <input
+            type="text"
+            placeholder="Add Todo"
+            value={inputText}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
+          />
+          <button onClick={handleAddTodo}>Add</button>
+        </div>
+        <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
+        <button onClick={clearCompleted}>Clear Completed</button>
+        <ConfirmDialog
+          isOpen={showConfirmDialog}
+          onClose={handleConfirmDialogClose}
+          onConfirm={handleConfirmDialogConfirm}
         />
-        <button onClick={handleAddTodo}>Add</button>
       </div>
-      <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
-    </div>
     </div>
   );
 };
