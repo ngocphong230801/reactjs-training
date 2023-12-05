@@ -10,6 +10,7 @@
 .storybook-button--primary {
   color: white;
   background-color: #1ea7fd;
+  border: none;
 }
 .storybook-button--secondary {
   color: #333;

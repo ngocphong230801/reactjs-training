@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TodoList from './components/TodoList';
 import ConfirmDialog from './components/ConfirmDialog';
+import { Button } from './stories/Button';
 
 interface Todo {
   id: number;
@@ -80,7 +81,7 @@ const App: React.FC = () => {
             onChange={handleInputChange}
             onKeyPress={handleKeyPress}
           />
-          <button onClick={handleAddTodo}>Add</button>
+          <button onClick={handleAddTodo} className='storybook-button--primary'>Add</button>
         </div>
         <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
         <button onClick={clearCompleted}>Clear Completed</button>
