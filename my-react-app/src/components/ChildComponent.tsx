@@ -18,4 +18,5 @@ const ChildComponent: React.FC<ChildProps> = ({ sendDataToParent }) => {
   );
 };
 
+
 export default ChildComponent;
