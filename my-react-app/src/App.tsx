@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TodoList from './components/TodoList';
 import ConfirmDialog from './components/ConfirmDialog';
-import { Button } from './stories/Button';
 
 interface Todo {
   id: number;
@@ -31,7 +30,7 @@ const App: React.FC = () => {
         text: inputText,
         completed: false,
       };
-      setTodos([...todos, newTodo]);
+      setTodos([newTodo,...todos]);
       setInputText('');
     }
   };
@@ -82,15 +81,15 @@ const App: React.FC = () => {
             onKeyPress={handleKeyPress}
           />
           <button onClick={handleAddTodo} className='storybook-button--primary'>Add</button>
+          <button onClick={clearCompleted} className='storybook-button--primary'>Clear Completed</button>
         </div>
         <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
-        <button onClick={clearCompleted}>Clear Completed</button>
+      </div>
         <ConfirmDialog
           isOpen={showConfirmDialog}
           onClose={handleConfirmDialogClose}
           onConfirm={handleConfirmDialogConfirm}
         />
-      </div>
     </div>
   );
 };

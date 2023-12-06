@@ -9,22 +9,22 @@ interface ConfirmDialogProps {
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
 
-  const handleConfirm = () => {
+  const handleConfirm = (): void => {
     onConfirm();
     onClose();
   };
 
-  const handleCancel = () => {
+  const handleCancel = (): void => {
     onClose();
   };
 
   return (
     <div className="confirm-dialog">
       <div className="dialog-content">
-        <p>Are you sure you want to proceed?</p>
+        <p className='dialog-p'>Are you sure remove item?</p>
         <div className="button-group">
-          <button onClick={handleConfirm}>Yes</button>
           <button onClick={handleCancel}>Cancel</button>
+          <button onClick={handleConfirm}>Yes</button>
         </div>
       </div>
     </div>

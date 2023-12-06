@@ -11,11 +11,15 @@
   color: white;
   background-color: #1ea7fd;
   border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 5px;
 }
 .storybook-button--secondary {
-  color: #333;
-  background-color: transparent;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+  color: #f1f1f1;
+  background-color: #e61616;
+  border: none;
+  border-radius: 10px;
 }
 .storybook-button--small {
   font-size: 12px;
