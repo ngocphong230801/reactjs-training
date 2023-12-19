@@ -1,4 +1,4 @@
-export const REGEX = {
+const REGEX = {
     // Check name format
     name: /^[a-zA-ZÀ-ỹ\s]*$/,
 
@@ -8,3 +8,5 @@ export const REGEX = {
     // Check phone format
     phone: /^(0)+[3|5|7|8|9]+([0-9]{8})$/,
 };
+
+export default REGEX
