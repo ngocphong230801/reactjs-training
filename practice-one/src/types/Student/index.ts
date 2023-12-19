@@ -1,5 +1,4 @@
 export interface CustomStudent {
-    id: string;
     name: string;
     studentID: number;
     email: string;
